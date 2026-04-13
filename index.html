@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LINK LINK</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Background System (Full Screen) -->
+    <div id="bg-wall"></div>
+    <div id="bg-overlay"></div>
+
+    <div id="game-container">
+      <!-- Canvas for actual gameplay (board, HUD, effects) -->
+      <canvas id="gameCanvas"></canvas>
+
+      <button id="nav-back" class="hidden" type="button">返回主界面</button>
+
+      <div id="page-main" class="page">
+        <h1 id="main-title">LINK LINK</h1>
+        <div id="main-menu"></div>
+      </div>
+
+      <div id="page-help" class="page hidden">
+        <div id="help-rule"></div>
+        <div id="help-keys"></div>
+      </div>
+
+      <div id="page-leaderboard" class="page hidden">
+        <div id="leaderboard-table"></div>
+      </div>
+    </div>
+    <script type="module" src="js/game.js"></script>
+  </body>
+</html>

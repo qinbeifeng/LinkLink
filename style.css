@@ -1,0 +1,306 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #05060a;
+  font-family: "Cinzel", ui-serif, "Times New Roman", Times, serif;
+  overflow: hidden;
+}
+
+#bg-wall {
+  position: fixed;
+  inset: -10vw -10vh;
+  width: 120vw;
+  height: 120vh;
+  z-index: 1;
+  display: grid;
+  filter: brightness(0.8) contrast(1.05);
+  will-change: transform;
+  pointer-events: none;
+}
+
+.bg-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  perspective: 1000px;
+}
+
+.bg-card-inner {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bg-card-front,
+.bg-card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.bg-card-back {
+  transform: rotateY(180deg);
+}
+
+.bg-card.flipped .bg-card-inner {
+  transform: rotateY(180deg);
+}
+
+#bg-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background:
+    linear-gradient(120deg, rgba(40, 60, 120, 0.22), rgba(120, 30, 60, 0.22)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.58));
+  pointer-events: none;
+}
+
+#game-container {
+  position: relative;
+  width: 1000px;
+  height: 800px;
+  border-radius: 18px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#gameCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;
+  z-index: 11;
+}
+
+button {
+  font-family: inherit;
+}
+
+.hidden {
+  display: none;
+}
+
+.page {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  text-align: center;
+  padding: 0 60px;
+}
+
+#nav-back {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  z-index: 30;
+  background: transparent;
+  border: 0;
+  padding: 8px 6px;
+  color: #ffffff;
+  opacity: 0.8;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease,
+    letter-spacing 200ms ease;
+}
+
+#nav-back:hover {
+  opacity: 1;
+  transform: scale(1.02);
+  letter-spacing: 0.12em;
+}
+
+#nav-back:active {
+  transform: scale(0.99);
+}
+
+#main-title {
+  text-transform: uppercase;
+  font-family: "Cinzel", ui-serif, "Times New Roman", Times, serif;
+  font-weight: 700;
+  font-size: clamp(64px, 16vh, 100px);
+  line-height: 1;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  opacity: 0.9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin: 0 0 34px 0;
+}
+
+#main-menu {
+  width: min(760px, 92%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+#main-menu[data-layout="grid-2"],
+#main-menu[data-layout="grid-3"] {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  gap: 18px 50px;
+}
+
+#main-menu[data-layout="grid-2"] {
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+}
+
+#main-menu[data-layout="grid-3"] {
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+}
+
+.menu-btn {
+  background: transparent;
+  border: 0;
+  padding: 10px 6px;
+  color: #ffffff;
+  opacity: 0.8;
+  font-family: "Cinzel", ui-serif, "Times New Roman", Times, serif;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition:
+    transform 250ms ease,
+    opacity 250ms ease,
+    letter-spacing 250ms ease;
+  min-width: 240px;
+  text-align: center;
+  transform: scale(1);
+  position: relative;
+}
+
+.menu-btn::after {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 0%;
+  margin: 10px auto 0;
+  background: rgba(255, 255, 255, 0.28);
+  opacity: 0;
+  transition:
+    width 250ms ease,
+    opacity 250ms ease;
+}
+
+.menu-btn:hover {
+  transform: scale(1.02);
+  opacity: 1;
+  letter-spacing: 0.12em;
+}
+
+.menu-btn:hover::after {
+  width: 68%;
+  opacity: 1;
+}
+
+.menu-btn:active {
+  transform: scale(0.99);
+}
+
+.menu-btn.is-active {
+  opacity: 1;
+}
+
+.menu-btn.is-active::after {
+  width: 34%;
+  opacity: 0.6;
+}
+
+.menu-stars {
+  display: block;
+  margin-top: 6px;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  opacity: 0.8;
+}
+
+#help-rule {
+  color: #ffffff;
+  opacity: 0.9;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  line-height: 1.9;
+  max-width: 760px;
+}
+
+#help-keys {
+  margin-top: 22px;
+  color: #ffffff;
+  opacity: 0.8;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.9;
+}
+
+#leaderboard-table {
+  width: min(860px, 92%);
+}
+
+.leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 20px;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+}
+
+.leaderboard-table th {
+  font-family: inherit;
+  font-weight: 600;
+  padding: 12px 12px;
+  opacity: 0.9;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaderboard-table td {
+  padding: 12px 12px;
+  opacity: 0.8;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaderboard-date {
+  font-size: 16px;
+  opacity: 0.8;
+}
+
+.leaderboard-empty {
+  text-align: center;
+  padding: 18px 10px;
+  opacity: 0.8;
+}
